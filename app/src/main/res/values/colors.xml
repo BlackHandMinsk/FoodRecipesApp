@@ -15,4 +15,11 @@
     <color name="red">#FF4646</color>
     <color name="yellow">#FFC114</color>
     <color name="green">#00C980</color>
+
+
+    <color name="purple_200">#ff5f52</color>
+    <color name="purple_500">#c62828</color>
+    <color name="purple_700">#8e0000</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
 </resources>
