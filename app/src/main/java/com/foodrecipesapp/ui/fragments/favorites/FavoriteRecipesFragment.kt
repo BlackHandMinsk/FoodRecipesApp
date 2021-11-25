@@ -1,10 +1,11 @@
-package com.foodrecipesapp
+package com.foodrecipesapp.ui.fragments.favorites
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.foodrecipesapp.R
 
 
 class FavoriteRecipesFragment : Fragment() {
