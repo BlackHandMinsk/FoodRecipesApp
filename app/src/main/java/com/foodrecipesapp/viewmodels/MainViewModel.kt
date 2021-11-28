@@ -1,9 +1,8 @@
-package com.foodrecipesapp
+package com.foodrecipesapp.viewmodels
 
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
-import android.net.Network
 import android.net.NetworkCapabilities
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel

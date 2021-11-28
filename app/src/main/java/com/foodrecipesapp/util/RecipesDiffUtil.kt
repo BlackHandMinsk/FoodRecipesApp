@@ -6,11 +6,11 @@ import com.foodrecipesapp.models.Result
 class RecipesDiffUtil (private val oldList:List<com.foodrecipesapp.models.Result>,private val newList: List<Result>):
     DiffUtil.Callback() {
     override fun getOldListSize(): Int {
-       return oldListSize
+       return oldList.size
     }
 
     override fun getNewListSize(): Int {
-       return newListSize
+       return newList.size
     }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
