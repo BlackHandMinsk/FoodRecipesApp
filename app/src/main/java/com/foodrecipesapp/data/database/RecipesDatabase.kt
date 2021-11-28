@@ -12,5 +12,6 @@ import androidx.room.TypeConverters
 @TypeConverters(RecipesTypeConverter::class)
 abstract class RecipesDatabase:RoomDatabase() {
 
+
     abstract fun recipesDao(): RecipesDao
 }
