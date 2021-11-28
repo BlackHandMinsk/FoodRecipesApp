@@ -44,21 +44,24 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
 
 
     val readMealAndDietType: Flow<MealAndDietType> = dataStore.data
-        .catch { exception->
-            if (exception is IOException){
+        .catch { exception ->
+            if (exception is IOException) {
                 emit(emptyPreferences())
-            }else{
+            } else {
                 throw exception
             }
-        }.map { preferences->
-            val selectedMealType = preferences[PreferenceKeys.selectedMealType]?:DEFAULT_MEAL_TYPE
-            val selectedMealTypeId = preferences[PreferenceKeys.selectedMealTypeId]?:0
-            val selectedDietType = preferences[PreferenceKeys.selectedDietType]?:DEFAULT_DIET_TYPE
-            val selectedDietTypeId = preferences[PreferenceKeys.selectedDietTypeId]?:0
-            MealAndDietType(selectedMealType,
-            selectedMealTypeId,
-            selectedDietType,
-                selectedDietTypeId)
+        }
+        .map { preferences ->
+            val selectedMealType = preferences[PreferenceKeys.selectedMealType] ?: DEFAULT_MEAL_TYPE
+            val selectedMealTypeId = preferences[PreferenceKeys.selectedMealTypeId] ?: 0
+            val selectedDietType = preferences[PreferenceKeys.selectedDietType] ?: DEFAULT_DIET_TYPE
+            val selectedDietTypeId = preferences[PreferenceKeys.selectedDietTypeId] ?: 0
+            MealAndDietType(
+                selectedMealType,
+                selectedMealTypeId,
+                selectedDietType,
+                selectedDietTypeId
+            )
         }
 }
 
