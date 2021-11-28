@@ -3,9 +3,10 @@ package com.foodrecipesapp.ui.fragments.recipes
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.SearchView
+
 import androidx.fragment.app.Fragment
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -100,6 +101,9 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query!=null){
+            searchApiData(query)
+        }
         return true
     }
 
@@ -141,6 +145,29 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
                 }
                 is NetworkResult.Loading ->{
                     showShimmerEffect()
+                }
+            }
+        })
+    }
+
+    private fun searchApiData(searchQuery:String){
+        showShimmerEffect()
+        mainViewModel.searchRecipes(recipesViewModel.applySearchQuery(searchQuery))
+        mainViewModel.searchedRecipesResponse.observe(viewLifecycleOwner,{responce->
+            when(responce){
+                is NetworkResult.Success->{
+                    hideShimmerEffect()
+                    val foodRecipe = responce.data
+                    foodRecipe?.let { mAdapter.setData(it) }
+                }
+                is NetworkResult.Error->{
+                    hideShimmerEffect()
+                    loadDataFromCache()
+                    Toast.makeText(requireContext(),responce.message.toString(),Toast.LENGTH_SHORT).show()
+                }
+                is NetworkResult.Loading->{
+                    showShimmerEffect()
+
                 }
             }
         })
