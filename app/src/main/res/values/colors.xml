@@ -31,6 +31,14 @@
     <color name="chipTextColor">@color/darkGray</color>
 
 
+
+
+
+
+
     //Details activity
     <color name="actionBarBackgroundColor">@color/colorPrimary</color>
+    <color name="strokeColor">@color/lightMediumGray</color>
+    <color name="cardBackgroundColor">@color/white</color>
+    <color name="titleColor">@color/darker</color>
 </resources>
