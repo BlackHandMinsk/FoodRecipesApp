@@ -1,7 +1,7 @@
 package com.foodrecipesapp.data
 
 import com.foodrecipesapp.data.database.RecipesDao
-import com.foodrecipesapp.data.database.RecipesEntity
+import com.foodrecipesapp.data.database.entities.RecipesEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

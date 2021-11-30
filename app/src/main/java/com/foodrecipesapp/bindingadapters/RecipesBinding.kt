@@ -1,12 +1,10 @@
 package com.foodrecipesapp.bindingadapters
 
-import android.os.strictmode.NetworkViolation
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.foodrecipesapp.data.database.RecipesDatabase
-import com.foodrecipesapp.data.database.RecipesEntity
+import com.foodrecipesapp.data.database.entities.RecipesEntity
 import com.foodrecipesapp.models.FoodRecipe
 import com.foodrecipesapp.util.NetworkResult
 

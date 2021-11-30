@@ -7,13 +7,11 @@ import android.net.NetworkCapabilities
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.foodrecipesapp.data.Repository
-import com.foodrecipesapp.data.database.RecipesEntity
+import com.foodrecipesapp.data.database.entities.RecipesEntity
 import com.foodrecipesapp.models.FoodRecipe
 import com.foodrecipesapp.util.NetworkResult
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
 import retrofit2.Response
 
 class MainViewModel @ViewModelInject constructor(

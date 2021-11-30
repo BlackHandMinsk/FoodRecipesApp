@@ -1,4 +1,4 @@
-package com.foodrecipesapp.data.database
+package com.foodrecipesapp.data.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
