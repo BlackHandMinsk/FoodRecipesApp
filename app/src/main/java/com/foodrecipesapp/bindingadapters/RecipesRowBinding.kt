@@ -13,11 +13,15 @@ import com.foodrecipesapp.R
 import com.foodrecipesapp.models.Result
 import com.foodrecipesapp.ui.fragments.recipes.RecipesFragment
 import com.foodrecipesapp.ui.fragments.recipes.RecipesFragmentDirections
+import org.jsoup.Jsoup
 import java.lang.Exception
 
 class RecipesRowBinding {
 
     companion object{
+
+
+
 
         @BindingAdapter("onRecipeCLickListener")
         @JvmStatic
@@ -66,6 +70,15 @@ class RecipesRowBinding {
                    }
                }
            }
+        }
+
+        @BindingAdapter("parsHtml")
+        @JvmStatic
+        fun parseHtml(textView: TextView,description:String?){
+            if (description!=null){
+                val desc = Jsoup.parse(description).text()
+                textView.text = desc
+            }
         }
 
     }
