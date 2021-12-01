@@ -5,11 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import coil.load
 import com.foodrecipesapp.R
+import com.foodrecipesapp.bindingadapters.RecipesRowBinding
 import com.foodrecipesapp.models.Result
 import com.foodrecipesapp.util.Constants.Companion.RECIPE_RESULT_KEY
+import kotlinx.android.synthetic.main.fragment_overview.*
 import kotlinx.android.synthetic.main.fragment_overview.view.*
 import org.jsoup.Jsoup
 
@@ -25,45 +29,31 @@ class OverviewFragment : Fragment() {
         val view =  inflater.inflate(R.layout.fragment_overview, container, false)
 
         val args = arguments
-        val myBundle:Result? = args?.getParcelable(RECIPE_RESULT_KEY)
+        val myBundle:Result = args!!.getParcelable<Result>(RECIPE_RESULT_KEY) as Result
 
-        view.main_imageView.load(myBundle?.image)
-        view.title_textView.text = myBundle?.title
-        view.likes_textView.text = myBundle?.aggregateLikes.toString()
-        view.time_textView.text = myBundle?.readyInMinutes.toString()
-        myBundle?.summary.let {
-            val summary = Jsoup.parse(it).text()
-            view.summary_textView.text = summary
-        }
-        if (myBundle?.vegetarian ==true){
-            view.vegetarian_imageView.setColorFilter(ContextCompat.getColor(requireContext(),R.color.green))
-            view.vegetarian_textView.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
-        }
+        view.main_imageView.load(myBundle.image)
+        view.title_textView.text = myBundle.title
+        view.likes_textView.text = myBundle.aggregateLikes.toString()
+        view.time_textView.text = myBundle.readyInMinutes.toString()
 
-        if (myBundle?.vegan ==true){
-            view.vegan_imageView.setColorFilter(ContextCompat.getColor(requireContext(),R.color.green))
-            view.vegan_textView.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
-        }
+        RecipesRowBinding.parseHtml(view.summary_textView,myBundle.summary)
 
-        if (myBundle?.glutenFree ==true){
-            view.gluten_free_imageView.setColorFilter(ContextCompat.getColor(requireContext(),R.color.green))
-            view.gluten_free_textView.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
-        }
-        if (myBundle?.dairyFree ==true){
-            view.dairy_free_imageView.setColorFilter(ContextCompat.getColor(requireContext(),R.color.green))
-            view.dairy_free_textView.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
-        }
-
-        if (myBundle?.veryHealthy ==true){
-            view.healthy_imageView.setColorFilter(ContextCompat.getColor(requireContext(),R.color.green))
-            view.healthy_textView.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
-        }
-
-        if (myBundle?.cheap ==true){
-            view.cheap_imageView.setColorFilter(ContextCompat.getColor(requireContext(),R.color.green))
-            view.cheap_textView.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
-        }
+        updateColors(myBundle.vegetarian,view.vegetarian_textView,view.vegetarian_imageView)
+        updateColors(myBundle.vegan,view.vegan_textView,view.vegan_imageView)
+        updateColors(myBundle.cheap,view.cheap_textView,view.cheap_imageView)
+        updateColors(myBundle.dairyFree,view.dairy_free_textView,view.dairy_free_imageView)
+        updateColors(myBundle.glutenFree,view.gluten_free_textView,view.gluten_free_imageView)
+        updateColors(myBundle.glutenFree,view.gluten_free_textView,view.gluten_free_imageView)
+        updateColors(myBundle.veryHealthy,view.healthy_textView,view.healthy_imageView)
 
         return view
+    }
+
+
+    private fun updateColors(stateIsOn:Boolean,tv:TextView,iv:ImageView){
+        if (stateIsOn){
+            iv.setColorFilter(ContextCompat.getColor(requireContext(),R.color.green))
+            tv.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
+        }
     }
 }

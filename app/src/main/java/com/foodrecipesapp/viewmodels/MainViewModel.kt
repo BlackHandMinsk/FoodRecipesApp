@@ -11,11 +11,14 @@ import com.foodrecipesapp.data.database.entities.FavoritesEntity
 import com.foodrecipesapp.data.database.entities.RecipesEntity
 import com.foodrecipesapp.models.FoodRecipe
 import com.foodrecipesapp.util.NetworkResult
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import javax.inject.Inject
 
-class MainViewModel @ViewModelInject constructor(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     private val repository: Repository,
     application: Application):AndroidViewModel(application) {
 
