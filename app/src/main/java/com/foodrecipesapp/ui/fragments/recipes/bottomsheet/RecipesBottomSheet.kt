@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
@@ -14,6 +15,7 @@ import com.foodrecipesapp.util.Constants.Companion.DEFAULT_MEAL_TYPE
 import com.foodrecipesapp.viewmodels.RecipesViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
 import kotlinx.android.synthetic.main.recipes_bottom_sheet.view.*
 import java.util.*
@@ -39,19 +41,19 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val mView =  inflater.inflate(R.layout.recipes_bottom_sheet, container, false)
+        val mView = inflater.inflate(R.layout.recipes_bottom_sheet, container, false)
 
-        recipesViewModel.readMealAndDietType.asLiveData().observe(viewLifecycleOwner,{value->
+        recipesViewModel.readMealAndDietType.asLiveData().observe(viewLifecycleOwner, { value ->
             mealTypeChip = value.selectedMealType
             dietTypeChip = value.selectedDietType
-            updateChip(value.selectedMealTypeId,mView.mealType_chipGroup)
-            updateChip(value.selectedDietTypeId,mView.dietType_chipGroup)
+            updateChip(value.selectedMealTypeId, mView.mealType_chipGroup)
+            updateChip(value.selectedDietTypeId, mView.dietType_chipGroup)
         })
 
         mView.mealType_chipGroup.setOnCheckedChangeListener { group, selectedChipId ->
 
             val chip = group.findViewById<Chip>(selectedChipId)
-            val selectedMealType = chip.text.toString().toLowerCase(Locale.ROOT)
+            val selectedMealType = chip.text.toString().lowercase(Locale.ROOT)
             mealTypeChip = selectedMealType
             mealTypeChipId = selectedChipId
         }
@@ -59,19 +61,21 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
 
         mView.dietType_chipGroup.setOnCheckedChangeListener { group, selectedChipId ->
             val chip = group.findViewById<Chip>(selectedChipId)
-            val selectedDietType = chip.text.toString().toLowerCase(Locale.ROOT)
+            val selectedDietType = chip.text.toString().lowercase(Locale.ROOT)
             dietTypeChip = selectedDietType
             dietTypeChipId = selectedChipId
         }
 
+
         mView.apply_btn.setOnClickListener {
-            recipesViewModel.saveMealAndDietType(
+            recipesViewModel.saveMealAndDietTypeTemp(
                 mealTypeChip,
                 mealTypeChipId,
                 dietTypeChip,
                 dietTypeChipId
             )
-            val action = RecipesBottomSheetDirections.actionRecipesBottomSheetToRecipesFragment(true)
+            val action =
+                RecipesBottomSheetDirections.actionRecipesBottomSheetToRecipesFragment(true)
             findNavController().navigate(action)
         }
 
@@ -80,16 +84,15 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
     }
 
 
-    private fun updateChip(chipId:Int,chipGroup: ChipGroup){
-        if(chipId!=0){
-            try{
-                chipGroup.findViewById<Chip>(chipId).isChecked = true
-            }catch (e:Exception){
-                Log.d("RecipesBottomSheet",e.message.toString())
+        private fun updateChip(chipId: Int, chipGroup: ChipGroup) {
+            if (chipId != 0) {
+                try {
+                    val targetView = chipGroup.findViewById<Chip>(chipId)
+                    targetView.isChecked = true
+                    chipGroup.requestChildFocus(targetView, targetView)
+                } catch (e: Exception) {
+                    Log.d("RecipesBottomSheet", e.message.toString())
+                }
             }
         }
-    }
-
-
-
 }

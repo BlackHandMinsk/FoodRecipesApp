@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import androidx.hilt.lifecycle.ViewModelInject
+
 import androidx.lifecycle.*
 import com.foodrecipesapp.data.Repository
 import com.foodrecipesapp.data.database.entities.FavoritesEntity

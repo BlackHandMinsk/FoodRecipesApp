@@ -26,7 +26,7 @@ class DetailsActivity : AppCompatActivity() {
 
     private val args by navArgs<DetailsActivityArgs>()
     private val mainViewModel:MainViewModel by viewModels()
-    private lateinit var  menuItem:MenuItem
+    private lateinit var menuItem:MenuItem
 
     private var recipeSaved = false
     private var savedRecipeId = 0
@@ -54,7 +54,7 @@ class DetailsActivity : AppCompatActivity() {
         resultBundle.putParcelable("recipeBundle",args.result)
 
         val pagerAdapter = PagerAdapter(resultBundle,fragments,this)
-
+        viewPager2.isUserInputEnabled = false
         viewPager2.apply {
             adapter = pagerAdapter
         }
