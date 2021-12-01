@@ -1,10 +1,8 @@
 package com.foodrecipesapp.ui.fragments.favorites
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +11,7 @@ import com.foodrecipesapp.adapters.FavoriteRecipesAdapter
 import com.foodrecipesapp.databinding.FragmentFavoriteRecipesBinding
 import com.foodrecipesapp.databinding.FragmentRecipesBinding
 import com.foodrecipesapp.viewmodels.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_favorite_recipes.view.*
 
@@ -37,6 +36,7 @@ class FavoriteRecipesFragment : Fragment() {
         binding.mainViewModel = mainViewModel
         binding.mAdapter = mAdapter
 
+        setHasOptionsMenu(true)
         setupRecyclerView(binding.favoriteRecipesRecyclerView)
 
 
@@ -48,6 +48,23 @@ class FavoriteRecipesFragment : Fragment() {
     private fun setupRecyclerView(recyclerView: RecyclerView){
         recyclerView.adapter = mAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    private fun showSnackBar(message:String){
+        Snackbar.make(binding.root,message,Snackbar.LENGTH_SHORT).setAction("Ok"){}.show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.favorite_recipes_menu,menu)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.deleteAll_favorite_recipes_menu){
+            mainViewModel.deleteAllFavoriteRecipes()
+            showSnackBar("All recipes removed.")
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 
