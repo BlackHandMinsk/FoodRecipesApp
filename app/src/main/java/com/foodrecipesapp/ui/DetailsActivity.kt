@@ -17,6 +17,7 @@ import com.foodrecipesapp.ui.fragments.instructions.InstructionsFragment
 import com.foodrecipesapp.ui.fragments.overview.OverviewFragment
 import com.foodrecipesapp.viewmodels.MainViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_details.*
 
@@ -52,10 +53,15 @@ class DetailsActivity : AppCompatActivity() {
         val resultBundle = Bundle()
         resultBundle.putParcelable("recipeBundle",args.result)
 
-        val adapter = PagerAdapter(resultBundle,fragments,titles,supportFragmentManager)
+        val pagerAdapter = PagerAdapter(resultBundle,fragments,this)
 
-        viewPager.adapter = adapter
-        tabLayout.setupWithViewPager(viewPager)
+        viewPager2.apply {
+            adapter = pagerAdapter
+        }
+
+      TabLayoutMediator(tabLayout,viewPager2){tab,position->
+          tab.text = titles[position]
+      }.attach()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

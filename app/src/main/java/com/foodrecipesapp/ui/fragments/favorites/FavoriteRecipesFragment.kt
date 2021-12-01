@@ -18,61 +18,57 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FavoriteRecipesFragment : Fragment() {
 
-    private val mainViewModel:MainViewModel by viewModels()
-    private val mAdapter:FavoriteRecipesAdapter by lazy { FavoriteRecipesAdapter(requireActivity(),mainViewModel) }
+    private val mainViewModel: MainViewModel by viewModels()
+    private val mAdapter: FavoriteRecipesAdapter by lazy { FavoriteRecipesAdapter(requireActivity(), mainViewModel) }
 
-
-    private var _binding:FragmentFavoriteRecipesBinding? = null
+    private var _binding: FragmentFavoriteRecipesBinding? = null
     private val binding get() = _binding!!
-
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentFavoriteRecipesBinding.inflate(inflater,container,false)
+        _binding = FragmentFavoriteRecipesBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.mainViewModel = mainViewModel
         binding.mAdapter = mAdapter
 
         setHasOptionsMenu(true)
+
         setupRecyclerView(binding.favoriteRecipesRecyclerView)
-
-
 
         return binding.root
     }
 
-
-    private fun setupRecyclerView(recyclerView: RecyclerView){
-        recyclerView.adapter = mAdapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-    }
-
-    private fun showSnackBar(message:String){
-        Snackbar.make(binding.root,message,Snackbar.LENGTH_SHORT).setAction("Ok"){}.show()
-    }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.favorite_recipes_menu,menu)
+        inflater.inflate(R.menu.favorite_recipes_menu, menu)
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.deleteAll_favorite_recipes_menu){
+        if(item.itemId == R.id.deleteAll_favorite_recipes_menu){
             mainViewModel.deleteAllFavoriteRecipes()
-            showSnackBar("All recipes removed.")
+            showSnackBar()
         }
         return super.onOptionsItemSelected(item)
     }
 
+    private fun setupRecyclerView(recyclerView: RecyclerView) {
+        recyclerView.adapter = mAdapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
 
+    private fun showSnackBar(){
+        Snackbar.make(
+            binding.root,
+            "All recipes removed.",
+            Snackbar.LENGTH_SHORT
+        ).setAction("Okay"){}
+            .show()
+    }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
         mAdapter.clearContextualActionMode()
     }
