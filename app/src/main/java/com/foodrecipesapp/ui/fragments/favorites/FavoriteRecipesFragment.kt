@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.foodrecipesapp.R
 import com.foodrecipesapp.adapters.FavoriteRecipesAdapter
 import com.foodrecipesapp.databinding.FragmentFavoriteRecipesBinding
-import com.foodrecipesapp.databinding.FragmentRecipesBinding
+
 import com.foodrecipesapp.viewmodels.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_favorite_recipes.view.*
+
 
 @AndroidEntryPoint
 class FavoriteRecipesFragment : Fragment() {
@@ -26,10 +26,12 @@ class FavoriteRecipesFragment : Fragment() {
     private val binding get() = _binding!!
 
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentFavoriteRecipesBinding.inflate(inflater,container,false)
         binding.lifecycleOwner = this
@@ -66,6 +68,7 @@ class FavoriteRecipesFragment : Fragment() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 
 
     override fun onDestroy() {
