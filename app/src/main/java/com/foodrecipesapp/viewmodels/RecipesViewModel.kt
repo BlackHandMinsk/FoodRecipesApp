@@ -7,6 +7,10 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.foodrecipesapp.data.DataStoreRepository
 import com.foodrecipesapp.data.MealAndDietType
+import com.foodrecipesapp.usecases.datastore.ReadBackOnlineUseCase
+import com.foodrecipesapp.usecases.datastore.ReadMealAndDietTypeUseCase
+import com.foodrecipesapp.usecases.datastore.SaveBackOnlineUseCase
+import com.foodrecipesapp.usecases.datastore.SaveMealAndDietTypeUseCase
 import com.foodrecipesapp.util.Constants.Companion.API_KEY
 import com.foodrecipesapp.util.Constants.Companion.DEFAULT_DIET_TYPE
 import com.foodrecipesapp.util.Constants.Companion.DEFAULT_MEAL_TYPE
@@ -28,6 +32,10 @@ import javax.inject.Inject
 @HiltViewModel
 class RecipesViewModel @Inject constructor(
     application: Application,
+    private val readMealAndDietTypeUseCase: ReadMealAndDietTypeUseCase,
+    private val readBackOnlineUseCase: ReadBackOnlineUseCase,
+    private val saveMealAndDietTypeUseCase: SaveMealAndDietTypeUseCase,
+    private val saveBackOnlineUseCase:SaveBackOnlineUseCase,
     private val dataStoreRepository: DataStoreRepository ) : AndroidViewModel(application) {
 
 
@@ -37,19 +45,27 @@ class RecipesViewModel @Inject constructor(
     var networkStatus = false
     var backOnline = false
 
-    val readMealAndDietType = dataStoreRepository.readMealAndDietType
-    val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
+    val readMealAndDietType = readMealAndDietTypeUseCase.invoke()
+    //= dataStoreRepository.readMealAndDietType
+    val readBackOnline = readBackOnlineUseCase.invoke()
+    //= dataStoreRepository.readBackOnline.asLiveData()
 
 
     fun saveMealAndDietType() =
         viewModelScope.launch(Dispatchers.IO) {
             if (this@RecipesViewModel::mealAndDiet.isInitialized) {
-                dataStoreRepository.saveMealAndDietType(
+                saveMealAndDietTypeUseCase.invoke(
                     mealAndDiet.selectedMealType,
                     mealAndDiet.selectedMealTypeId,
                     mealAndDiet.selectedDietType,
                     mealAndDiet.selectedDietTypeId
                 )
+//                dataStoreRepository.saveMealAndDietType(
+//                    mealAndDiet.selectedMealType,
+//                    mealAndDiet.selectedMealTypeId,
+//                    mealAndDiet.selectedDietType,
+//                    mealAndDiet.selectedDietTypeId
+//                )
             }
         }
 
@@ -58,7 +74,8 @@ class RecipesViewModel @Inject constructor(
     }
 
     fun saveBackOnline(backOnline:Boolean) = viewModelScope.launch(Dispatchers.IO) {
-        dataStoreRepository.saveBackOnline(backOnline)
+        saveBackOnlineUseCase.invoke(backOnline)
+       // dataStoreRepository.saveBackOnline(backOnline)
     }
 
     fun applyQueries(): HashMap<String, String> {

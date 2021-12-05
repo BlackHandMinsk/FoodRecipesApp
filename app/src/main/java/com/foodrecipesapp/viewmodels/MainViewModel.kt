@@ -10,6 +10,9 @@ import com.foodrecipesapp.data.Repository
 import com.foodrecipesapp.data.database.entities.FavoritesEntity
 import com.foodrecipesapp.data.database.entities.RecipesEntity
 import com.foodrecipesapp.models.FoodRecipe
+import com.foodrecipesapp.usecases.local.*
+import com.foodrecipesapp.usecases.remote.GetRemoteRecipesUseCase
+import com.foodrecipesapp.usecases.remote.SearchRemoteRecipesUseCase
 import com.foodrecipesapp.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -20,30 +23,52 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val repository: Repository,
+    private val deleteLocalFavoriteRecipesUseCase: DeleteLocalFavoriteRecipesUseCase,
+    private val deleteLocalAllFavoritesRecipesUseCase: DeleteLocalAllFavoritesRecipesUseCase,
+    private val insertLocalFavoritesRecipesUseCase: InsertLocalFavoritesRecipesUseCase,
+    private val insertLocalRecipesUseCase: InsertLocalRecipesUseCase,
+    private val readLocalRecipesUseCase: ReadLocalRecipesUseCase,
+    private val readLocalFavoriteRecipesUseCase: ReadLocalFavoriteRecipesUseCase,
+    private val getRemoteRecipesUseCase: GetRemoteRecipesUseCase,
+    private val searchRemoteRecipesUseCase: SearchRemoteRecipesUseCase,
     application: Application):AndroidViewModel(application) {
 
     //Room
 
-    val readRecipes:LiveData<List<RecipesEntity>> = repository.local.readRecipes().asLiveData()
-    val readFavoriteRecipes:LiveData<List<FavoritesEntity>> = repository.local.readFavoriteRecipes().asLiveData()
+    val readRecipes:LiveData<List<RecipesEntity>> = readLocalRecipesUseCase.invoke()
+    //= repository.local.readRecipes().asLiveData()
+    val readFavoriteRecipes:LiveData<List<FavoritesEntity>> = readLocalFavoriteRecipesUseCase.invoke()
+    //= repository.local.readFavoriteRecipes().asLiveData()
 
     private fun insertRecipes(recipesEntity: RecipesEntity) = viewModelScope.launch(Dispatchers.IO){
-        repository.local.insertRecipes(recipesEntity)
+        insertLocalRecipesUseCase.invoke(recipesEntity)
     }
+//    = viewModelScope.launch(Dispatchers.IO){
+//        repository.local.insertRecipes(recipesEntity)
+//    }
 
      fun insertFavoriteRecipe(favoritesEntity: FavoritesEntity) = viewModelScope.launch(Dispatchers.IO){
-        repository.local.insertFavoriteRecipes(favoritesEntity)
-    }
+         insertLocalFavoritesRecipesUseCase.invoke(favoritesEntity)
+     }
+//     = viewModelScope.launch(Dispatchers.IO){
+//        repository.local.insertFavoriteRecipes(favoritesEntity)
+//    }
 
 
      fun deleteFavoriteRecipe(favoritesEntity: FavoritesEntity) = viewModelScope.launch(Dispatchers.IO){
-        repository.local.deleteFavoriteRecipe(favoritesEntity)
-    }
+         deleteLocalFavoriteRecipesUseCase.invoke(favoritesEntity)
+     }
+//     = viewModelScope.launch(Dispatchers.IO){
+//        repository.local.deleteFavoriteRecipe(favoritesEntity)
+//    }
 
 
-     fun deleteAllFavoriteRecipes() = viewModelScope.launch(Dispatchers.IO){
-        repository.local.deleteAllFavoriteRecipes()
-    }
+     fun deleteAllFavoriteRecipes()  = viewModelScope.launch(Dispatchers.IO){
+         deleteLocalAllFavoritesRecipesUseCase.invoke()
+     }
+//     = viewModelScope.launch(Dispatchers.IO){
+//        repository.local.deleteAllFavoriteRecipes()
+//    }
 
 
     ///Retrofit
@@ -64,7 +89,8 @@ class MainViewModel @Inject constructor(
         recipesResponse.value = NetworkResult.Loading()
     if (hasInternetConnection()){
         try {
-            val response = repository.remote.getRecipes(queries)
+            val response = getRemoteRecipesUseCase.invoke(queries)
+           // = repository.remote.getRecipes(queries)
             recipesResponse.value = handleFoodRecipesResponse(response)
 
             val fooRecipe = recipesResponse.value!!.data
@@ -83,7 +109,8 @@ class MainViewModel @Inject constructor(
         searchedRecipesResponse.value = NetworkResult.Loading()
         if (hasInternetConnection()){
             try {
-                val response = repository.remote.searchRecipes(searchQuery)
+                val response = searchRemoteRecipesUseCase.invoke(searchQuery)
+                //= repository.remote.searchRecipes(searchQuery)
                 searchedRecipesResponse.value = handleFoodRecipesResponse(response)
             }catch (e:Exception){
                 searchedRecipesResponse.value = NetworkResult.Error("Recipes not found.")
