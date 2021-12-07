@@ -20,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_details.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class DetailsActivity : AppCompatActivity() {
@@ -52,6 +53,8 @@ class DetailsActivity : AppCompatActivity() {
 
         val resultBundle = Bundle()
         resultBundle.putParcelable("recipeBundle",args.result)
+
+
 
         val pagerAdapter = PagerAdapter(resultBundle,fragments,this)
         viewPager2.isUserInputEnabled = false

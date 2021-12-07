@@ -13,6 +13,7 @@ import com.foodrecipesapp.ui.fragments.favorites.FavoriteRecipesFragmentDirectio
 import com.foodrecipesapp.util.RecipesDiffUtil
 import com.foodrecipesapp.viewmodels.MainViewModel
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.favorite_recipes_row_layout.view.*
 
 class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity,

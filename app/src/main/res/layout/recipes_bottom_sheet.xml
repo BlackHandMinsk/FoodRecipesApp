@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@color/cardBackgroundColor"
     tools:context=".ui.fragments.recipes.bottomsheet.RecipesBottomSheet">
 
     <TextView
@@ -16,7 +16,7 @@
         android:text="@string/meal_type"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@color/dark"
+        android:textColor="@color/titleColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -154,7 +154,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:text="@string/diet_type"
-        android:textColor="@color/dark"
+        android:textColor="@color/titleColor"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -246,6 +246,45 @@
         </LinearLayout>
     </HorizontalScrollView>
 
+    <TextView
+        android:id="@+id/theme_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/theme"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/titleColor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dietType_scrollView" />
+
+    <HorizontalScrollView
+        android:id="@+id/theme_scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/theme_txt">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/theme_switch"
+                android:layout_width="match_parent"
+                android:checked="false"
+                android:layout_height="match_parent">
+            </androidx.appcompat.widget.SwitchCompat>
+        </LinearLayout>
+    </HorizontalScrollView>
+
     <Button
         android:id="@+id/apply_btn"
         android:layout_width="match_parent"
@@ -255,10 +294,12 @@
         android:layout_marginBottom="16dp"
         android:text="@string/apply"
         android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dietType_scrollView"
+        app:layout_constraintTop_toBottomOf="@+id/theme_scrollView"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

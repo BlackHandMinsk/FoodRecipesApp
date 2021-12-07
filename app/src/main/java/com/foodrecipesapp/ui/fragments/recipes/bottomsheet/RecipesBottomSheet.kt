@@ -1,11 +1,14 @@
 package com.foodrecipesapp.ui.fragments.recipes.bottomsheet
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+import androidx.appcompat.widget.SwitchCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
@@ -29,10 +32,12 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
     private var mealTypeChipId = 0
     private var dietTypeChip = DEFAULT_DIET_TYPE
     private var dietTypeChipId = 0
+    private var ifThemeChanged = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         recipesViewModel = ViewModelProvider(requireActivity()).get(RecipesViewModel::class.java)
     }
 
@@ -43,12 +48,16 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
         // Inflate the layout for this fragment
         val mView = inflater.inflate(R.layout.recipes_bottom_sheet, container, false)
 
+
+
         recipesViewModel.readMealAndDietType.asLiveData().observe(viewLifecycleOwner, { value ->
             mealTypeChip = value.selectedMealType
             dietTypeChip = value.selectedDietType
             updateChip(value.selectedMealTypeId, mView.mealType_chipGroup)
             updateChip(value.selectedDietTypeId, mView.dietType_chipGroup)
         })
+
+
 
         mView.mealType_chipGroup.setOnCheckedChangeListener { group, selectedChipId ->
 
@@ -65,7 +74,7 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
             dietTypeChip = selectedDietType
             dietTypeChipId = selectedChipId
         }
-
+        
 
         mView.apply_btn.setOnClickListener {
             recipesViewModel.saveMealAndDietTypeTemp(
@@ -74,13 +83,33 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
                 dietTypeChip,
                 dietTypeChipId
             )
+            changeTheme(ifThemeChanged)
             val action =
                 RecipesBottomSheetDirections.actionRecipesBottomSheetToRecipesFragment(true)
             findNavController().navigate(action)
         }
+        
+        
+        mView.theme_switch.setOnCheckedChangeListener { _, isChecked ->
+            ifThemeChanged = isChecked
+        }
 
 
         return mView
+    }
+
+
+
+    private fun changeTheme(change:Boolean){
+        when(change){
+            true->{
+                val mode = context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)
+            when (mode) {
+                Configuration.UI_MODE_NIGHT_YES -> {AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)}
+                Configuration.UI_MODE_NIGHT_NO -> {AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)}
+                Configuration.UI_MODE_NIGHT_UNDEFINED -> {}}
+            }
+        }
     }
 
 

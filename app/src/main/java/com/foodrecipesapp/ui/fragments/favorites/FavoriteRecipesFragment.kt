@@ -13,6 +13,7 @@ import com.foodrecipesapp.databinding.FragmentFavoriteRecipesBinding
 import com.foodrecipesapp.viewmodels.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 @AndroidEntryPoint
@@ -34,12 +35,18 @@ class FavoriteRecipesFragment : Fragment() {
         binding.mainViewModel = mainViewModel
         binding.mAdapter = mAdapter
 
+
         setHasOptionsMenu(true)
 
         setupRecyclerView(binding.favoriteRecipesRecyclerView)
 
+
         return binding.root
     }
+
+
+
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.favorite_recipes_menu, menu)

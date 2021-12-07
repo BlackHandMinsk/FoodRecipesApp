@@ -39,4 +39,6 @@ class IngredientsFragment : Fragment() {
         view.ingredients_recyclerview.adapter = mAdapter
         view.ingredients_recyclerview.layoutManager = LinearLayoutManager(requireContext())
     }
+
+
 }
