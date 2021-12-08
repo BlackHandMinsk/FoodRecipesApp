@@ -6,9 +6,9 @@ import com.foodrecipesapp.models.FoodRecipe
 import com.foodrecipesapp.util.Constants.Companion.RECIPES_TABLE
 
 @Entity(tableName = RECIPES_TABLE)
-class RecipesEntity (
+class RecipesEntity(
     var foodRecipe: FoodRecipe
-){
+) {
     @PrimaryKey(autoGenerate = false)
-    var id:Int = 0
+    var id: Int = 0
 }

@@ -11,6 +11,7 @@ import com.foodrecipesapp.R
 
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -21,18 +22,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val navController = findNavController(R.id.navHostFragment)
-        val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.recipesFragment,
-            R.id.favoriteRecipesFragment
-        ))
-
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.recipesFragment,
+                R.id.favoriteRecipesFragment
+            )
+        )
 
         bottomNavigationView.setupWithNavController(navController)
-        setupActionBarWithNavController(navController,appBarConfiguration)
+
+        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
 
     override fun onSupportNavigateUp(): Boolean {
-    return navController.navigateUp()  || super.onSupportNavigateUp()
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }

@@ -20,7 +20,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 class FavoriteRecipesFragment : Fragment() {
 
     private val mainViewModel: MainViewModel by viewModels()
-    private val mAdapter: FavoriteRecipesAdapter by lazy { FavoriteRecipesAdapter(requireActivity(), mainViewModel) }
+    private val mAdapter: FavoriteRecipesAdapter by lazy {
+        FavoriteRecipesAdapter(
+            requireActivity(),
+            mainViewModel
+        )
+    }
 
     private var _binding: FragmentFavoriteRecipesBinding? = null
     private val binding get() = _binding!!
@@ -45,15 +50,12 @@ class FavoriteRecipesFragment : Fragment() {
     }
 
 
-
-
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.favorite_recipes_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.deleteAll_favorite_recipes_menu){
+        if (item.itemId == R.id.deleteAll_favorite_recipes_menu) {
             mainViewModel.deleteAllFavoriteRecipes()
             showSnackBar()
         }
@@ -65,12 +67,12 @@ class FavoriteRecipesFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    private fun showSnackBar(){
+    private fun showSnackBar() {
         Snackbar.make(
             binding.root,
             "All recipes removed.",
             Snackbar.LENGTH_SHORT
-        ).setAction("Okay"){}
+        ).setAction("Ok") {}
             .show()
     }
 

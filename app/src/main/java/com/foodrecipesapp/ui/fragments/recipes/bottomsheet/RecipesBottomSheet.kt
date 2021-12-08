@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-import androidx.appcompat.widget.SwitchCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
@@ -18,7 +16,6 @@ import com.foodrecipesapp.util.Constants.Companion.DEFAULT_MEAL_TYPE
 import com.foodrecipesapp.viewmodels.RecipesViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
 import kotlinx.android.synthetic.main.recipes_bottom_sheet.view.*
 import java.util.*
@@ -74,7 +71,7 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
             dietTypeChip = selectedDietType
             dietTypeChipId = selectedChipId
         }
-        
+
 
         mView.apply_btn.setOnClickListener {
             recipesViewModel.saveMealAndDietTypeTemp(
@@ -88,8 +85,8 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
                 RecipesBottomSheetDirections.actionRecipesBottomSheetToRecipesFragment(true)
             findNavController().navigate(action)
         }
-        
-        
+
+
         mView.theme_switch.setOnCheckedChangeListener { _, isChecked ->
             ifThemeChanged = isChecked
         }
@@ -99,29 +96,35 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
     }
 
 
-
-    private fun changeTheme(change:Boolean){
-        when(change){
-            true->{
-                val mode = context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)
-            when (mode) {
-                Configuration.UI_MODE_NIGHT_YES -> {AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)}
-                Configuration.UI_MODE_NIGHT_NO -> {AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)}
-                Configuration.UI_MODE_NIGHT_UNDEFINED -> {}}
+    private fun changeTheme(change: Boolean) {
+        when (change) {
+            true -> {
+                val mode =
+                    context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)
+                when (mode) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    }
+                    Configuration.UI_MODE_NIGHT_NO -> {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    }
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                    }
+                }
             }
         }
     }
 
 
-        private fun updateChip(chipId: Int, chipGroup: ChipGroup) {
-            if (chipId != 0) {
-                try {
-                    val targetView = chipGroup.findViewById<Chip>(chipId)
-                    targetView.isChecked = true
-                    chipGroup.requestChildFocus(targetView, targetView)
-                } catch (e: Exception) {
-                    Log.d("RecipesBottomSheet", e.message.toString())
-                }
+    private fun updateChip(chipId: Int, chipGroup: ChipGroup) {
+        if (chipId != 0) {
+            try {
+                val targetView = chipGroup.findViewById<Chip>(chipId)
+                targetView.isChecked = true
+                chipGroup.requestChildFocus(targetView, targetView)
+            } catch (e: Exception) {
+                Log.d("RecipesBottomSheet", e.message.toString())
             }
         }
+    }
 }

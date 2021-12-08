@@ -19,15 +19,15 @@ class InstructionsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_instructions, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_instructions, container, false)
 
 
         val args = arguments
         val myBundle: Result? = args?.getParcelable(Constants.RECIPE_RESULT_KEY)
 
-        view.instructions_webView.webViewClient = object :WebViewClient(){}
-        val webSiteUrl:String = myBundle!!.sourceUrl
+        view.instructions_webView.webViewClient = object : WebViewClient() {}
+        val webSiteUrl: String = myBundle!!.sourceUrl
         view.instructions_webView.loadUrl(webSiteUrl)
 
 

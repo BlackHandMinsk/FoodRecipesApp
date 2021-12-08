@@ -25,9 +25,9 @@ import javax.inject.Inject
 private val Context.datastore by preferencesDataStore(PREFERENCES_NAME)
 
 @ViewModelScoped
-class DataStoreRepository @Inject constructor(@ApplicationContext private val context: Context){
+class DataStoreRepository @Inject constructor(@ApplicationContext private val context: Context) {
 
-    private object PreferenceKeys{
+    private object PreferenceKeys {
         val selectedMealType = stringPreferencesKey(PREFERENCES_MEAL_TYPE)
         val selectedMealTypeId = intPreferencesKey(PREFERENCES_MEAL_TYPE_ID)
         val selectedDietType = stringPreferencesKey(PREFERENCES_DIET_TYPE)
@@ -36,11 +36,16 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
     }
 
 
-    private val dataStore:DataStore<Preferences> = context.datastore
+    private val dataStore: DataStore<Preferences> = context.datastore
 
 
-    suspend fun saveMealAndDietType(mealType:String,mealTypeId:Int,dietType:String,dietTypeId:Int){
-        dataStore.edit { preferences->
+    suspend fun saveMealAndDietType(
+        mealType: String,
+        mealTypeId: Int,
+        dietType: String,
+        dietTypeId: Int
+    ) {
+        dataStore.edit { preferences ->
             preferences[PreferenceKeys.selectedMealType] = mealType
             preferences[PreferenceKeys.selectedMealTypeId] = mealTypeId
             preferences[PreferenceKeys.selectedDietType] = dietType
@@ -48,8 +53,8 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
         }
     }
 
-    suspend fun saveBackOnline(backOnline:Boolean){
-        dataStore.edit { preferences->
+    suspend fun saveBackOnline(backOnline: Boolean) {
+        dataStore.edit { preferences ->
             preferences[PreferenceKeys.backOnline] = backOnline
         }
     }
@@ -83,15 +88,15 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
                 throw exception
             }
         }
-        .map { preferences->
-            val backOnline = preferences[PreferenceKeys.backOnline]?:false
+        .map { preferences ->
+            val backOnline = preferences[PreferenceKeys.backOnline] ?: false
             backOnline
         }
 }
 
 data class MealAndDietType(
-    val selectedMealType:String,
-    val selectedMealTypeId:Int,
-    val selectedDietType:String,
-    val selectedDietTypeId:Int
+    val selectedMealType: String,
+    val selectedMealTypeId: Int,
+    val selectedDietType: String,
+    val selectedDietTypeId: Int
 )

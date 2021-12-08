@@ -7,12 +7,12 @@ import com.foodrecipesapp.data.database.entities.FavoritesEntity
 import com.foodrecipesapp.data.database.entities.RecipesEntity
 
 @Database(
-    entities = [RecipesEntity::class,FavoritesEntity::class],
+    entities = [RecipesEntity::class, FavoritesEntity::class],
     version = 1,
     exportSchema = false
 )
 @TypeConverters(RecipesTypeConverter::class)
-abstract class RecipesDatabase:RoomDatabase() {
+abstract class RecipesDatabase : RoomDatabase() {
 
 
     abstract fun recipesDao(): RecipesDao

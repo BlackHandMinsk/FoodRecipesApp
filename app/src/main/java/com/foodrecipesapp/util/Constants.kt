@@ -2,10 +2,10 @@ package com.foodrecipesapp.util
 
 class Constants {
 
-    companion object{
+    companion object {
 
-    const val API_KEY = "db4736cb17dd4c8a986e3a715cf3d781"
-    const val BASE_URL = "https://api.spoonacular.com"
+        const val API_KEY = "db4736cb17dd4c8a986e3a715cf3d781"
+        const val BASE_URL = "https://api.spoonacular.com"
         const val BASE_IMAGE_URL = "https://spoonacular.com/cdn/ingredients_100x100/"
 
 

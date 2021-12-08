@@ -11,35 +11,34 @@ import androidx.navigation.findNavController
 import coil.load
 import com.foodrecipesapp.R
 import com.foodrecipesapp.models.Result
-import com.foodrecipesapp.ui.fragments.recipes.RecipesFragment
 import com.foodrecipesapp.ui.fragments.recipes.RecipesFragmentDirections
 import org.jsoup.Jsoup
 import java.lang.Exception
 
 class RecipesRowBinding {
 
-    companion object{
-
-
+    companion object {
 
 
         @BindingAdapter("onRecipeCLickListener")
         @JvmStatic
-        fun onRecipeCLickListener(recipeRowLayout:ConstraintLayout,result: Result){
+        fun onRecipeCLickListener(recipeRowLayout: ConstraintLayout, result: Result) {
+
             recipeRowLayout.setOnClickListener {
                 try {
-                    val action = RecipesFragmentDirections.actionRecipesFragmentToDetailsActivity(result)
+                    val action =
+                        RecipesFragmentDirections.actionRecipesFragmentToDetailsActivity(result)
                     recipeRowLayout.findNavController().navigate(action)
-                }catch (e:Exception){
-                    Log.d("onRecipeClickListener",e.toString())
+                } catch (e: Exception) {
+                    Log.d("onRecipeClickListener", e.toString())
                 }
             }
         }
 
         @BindingAdapter("loadImageFromUrl")
         @JvmStatic
-        fun loadImageFromUrl(imageView: ImageView,imageUrl:String){
-            imageView.load(imageUrl){
+        fun loadImageFromUrl(imageView: ImageView, imageUrl: String) {
+            imageView.load(imageUrl) {
                 crossfade(600)
                 error(R.drawable.ic_error_placeholder)
             }
@@ -48,23 +47,23 @@ class RecipesRowBinding {
 
         @BindingAdapter("applyVeganColor")
         @JvmStatic
-       fun applyVeganColor(view: View, vegan:Boolean){
-           if(vegan){
-               when(view){
-                   is TextView->{
-                       view.setTextColor(ContextCompat.getColor(view.context, R.color.green))
-                   }
-                   is ImageView->{
-                       view.setColorFilter(ContextCompat.getColor(view.context,R.color.green))
-                   }
-               }
-           }
+        fun applyVeganColor(view: View, vegan: Boolean) {
+            if (vegan) {
+                when (view) {
+                    is TextView -> {
+                        view.setTextColor(ContextCompat.getColor(view.context, R.color.green))
+                    }
+                    is ImageView -> {
+                        view.setColorFilter(ContextCompat.getColor(view.context, R.color.green))
+                    }
+                }
+            }
         }
 
         @BindingAdapter("parsHtml")
         @JvmStatic
-        fun parseHtml(textView: TextView,description:String?){
-            if (description!=null){
+        fun parseHtml(textView: TextView, description: String?) {
+            if (description != null) {
                 val desc = Jsoup.parse(description).text()
                 textView.text = desc
             }
