@@ -17,10 +17,10 @@ This is an app for finding culinary recipes. For each recipe you will be able to
 
 ## Preparing to work with the application
 
-Add your [Spoonacular](https://spoonacular.com//) API key in the `local.properties` file:
+Add your [Spoonacular](https://spoonacular.com//) API key in the `Constants` file:
 
 ```
-api_key=YOUR_API_KEY
+API_KEY=YOUR_API_KEY
 ```
 
 ## Features

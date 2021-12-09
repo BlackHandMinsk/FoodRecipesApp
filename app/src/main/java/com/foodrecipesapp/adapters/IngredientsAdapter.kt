@@ -27,11 +27,22 @@ class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.MyViewHolder>
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.itemView.ingredient_imageView.load(BASE_IMAGE_URL + ingredientsList[position].image) {
-            crossfade(600)
-            error(R.drawable.ic_error_placeholder)
+        if (ingredientsList[position].name == "flour") {
+            holder.itemView.ingredient_imageView.load(R.drawable.ic_flour){
+                crossfade(600)
+                error(R.drawable.ic_error_placeholder)
+            }
+
+        } else {
+            holder.itemView.ingredient_imageView.load(BASE_IMAGE_URL + ingredientsList[position].image) {
+                crossfade(600)
+                error(R.drawable.ic_error_placeholder)
+            }
         }
-        holder.itemView.ingredient_name.text = ingredientsList[position].name?.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+        holder.itemView.ingredient_name.text =
+            ingredientsList[position].name?.replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+            }
         holder.itemView.ingredient_amount.text = ingredientsList[position].amount.toString()
         holder.itemView.ingredient_unit.text = ingredientsList[position].unit
         holder.itemView.ingredient_consistency.text = ingredientsList[position].consistency
