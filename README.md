@@ -50,6 +50,7 @@ API_KEY=YOUR_API_KEY
 - [Gson](https://github.com/square/gson/) - A modern JSON library for Kotlin and Java.
 - [Coil](https://coil-kt.github.io/coil/) - loading images.
 - [Material-Components](https://github.com/material-components/material-components-android) - Material design components like ripple animation, cardView.
+- [Shimmer Recycle View](https://github.com/omtodkar/ShimmerRecyclerView) - Shimmer effect for recycle views.
 
  ## MAD Score
   ![summary](previews/summary.png)
