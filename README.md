@@ -64,5 +64,5 @@ Appita is based on MVVM architecture and a repository pattern.
 
 <img src="https://spoonacular.com/images/spoonacular-logo-b.svg" align="right" width="10%"/>
 
-Appita (Recipes App) using the [Spoonacular API](https://spoonacular.com/food-api) for constructing RESTful API.<br>
+[Spoonacular API](https://spoonacular.com/food-api) for constructing RESTful API.<br>
 Spoonacular API provides a RESTful API interface to highly detailed objects built from thousands of lines of data related to Recipes.
