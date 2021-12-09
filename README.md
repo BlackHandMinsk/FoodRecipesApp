@@ -60,7 +60,7 @@ API_KEY=YOUR_API_KEY
 
 App is based on MVVM architecture and a repository pattern.
 
-![architecture]<img src="previews/architecture.png" width="100" height="100"/>
+![architecture](previews/arc.png)
 
 ## Open API
 
