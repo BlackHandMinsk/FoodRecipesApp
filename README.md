@@ -10,9 +10,9 @@ This is an app for finding culinary recipes. For each recipe you will be able to
 <img src="screenshots/4.jpg" width="24%" height="40%"/>
 <img src="screenshots/1.jpg" width="24%" height="40%"/>
 <img src="screenshots/3.jpg" width="24%" height="40%"/>
-<img src="screenshots/2.jpg" width="40%" height="20%"/>
-<img src="screenshots/6.jpg" width="40%" height="20%"/>
-<img src="screenshots/7.jpg" width="40%" height="20%"/>
+<img src="screenshots/2.jpg" width="24%" height="40%"/>
+<img src="screenshots/6.jpg" width="24%" height="40%"/>
+<img src="screenshots/7.jpg" width="24%" height="40%"/>
 </p>
 
 ## Preparing to work with the application
