@@ -11,6 +11,7 @@ import com.foodrecipesapp.models.ExtendedIngredient
 import com.foodrecipesapp.util.Constants.Companion.BASE_IMAGE_URL
 import com.foodrecipesapp.util.RecipesDiffUtil
 import kotlinx.android.synthetic.main.ingredients_row_layout.view.*
+import java.util.*
 
 class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.MyViewHolder>() {
 
@@ -30,7 +31,7 @@ class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.MyViewHolder>
             crossfade(600)
             error(R.drawable.ic_error_placeholder)
         }
-        holder.itemView.ingredient_name.text = ingredientsList[position].name?.capitalize()
+        holder.itemView.ingredient_name.text = ingredientsList[position].name?.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
         holder.itemView.ingredient_amount.text = ingredientsList[position].amount.toString()
         holder.itemView.ingredient_unit.text = ingredientsList[position].unit
         holder.itemView.ingredient_consistency.text = ingredientsList[position].consistency
