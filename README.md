@@ -1,0 +1,68 @@
+<h1>Food Recipes App</h1>
+
+
+This is an app for finding culinary recipes. For each recipe you will be able to see a list of required products and a cooking recipe
+
+## Screenshots
+
+<p>
+<img src="screenshots/5.png" width="24%" height="40%"/>
+<img src="screenshots/4.png" width="24%" height="40%"/>
+<img src="screenshots/1.png" width="24%" height="40%"/>
+<img src="screenshots/3.png" width="24%" height="40%"/>
+<img src="screenshots/2.png" width="40%" height="20%"/>
+<img src="screenshots/6.png" width="40%" height="20%"/>
+</p>
+
+## Preparing to work with the application
+
+Add your [Sponacular](https://spoonacular.com//) API key in the `local.properties` file:
+
+```
+api_key=YOUR_API_KEY
+```
+
+## Features
+
+
+- Search for recipes
+- View recipe details like cooking time, rating, overview, 
+- Adding recipe to favorites
+- Sort by meal type, diet type
+- Change dark and light themes
+- Works offline by caching data into a database
+.
+
+## Tech stack & Open-source libraries
+
+- [Kotlin](https://kotlinlang.org/) based, [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) + [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/) for asynchronous.
+- Hilt (alpha) for dependency injection.
+- JetPack
+  - LiveData - notify domain layer data to views.
+  - Lifecycle - dispose of observing data when lifecycle state changes.
+  - ViewModel - UI related data holder, lifecycle aware.
+  - Room Persistence - construct a database using the abstract layer.
+- Architecture
+  - MVVM Architecture (View - DataBinding - ViewModel - Model)
+  - Repository pattern
+- [Retrofit2 & OkHttp3](https://github.com/square/retrofit) - construct the REST APIs and paging network data.
+- [Gson](https://github.com/square/gson/) - A modern JSON library for Kotlin and Java.
+- [Coil](https://coil-kt.github.io/coil/) - loading images.
+- [Material-Components](https://github.com/material-components/material-components-android) - Material design components like ripple animation, cardView.
+
+ ## MAD Score
+  ![summary](previews/summary.png)
+  ![kotlin](previews/kotlin.png)
+
+## Architecture
+
+Appita is based on MVVM architecture and a repository pattern.
+
+![architecture](https://developer.android.com/topic/libraries/architecture/images/final-architecture.png)
+
+## Open API
+
+<img src="https://spoonacular.com/images/spoonacular-logo-b.svg" align="right" width="10%"/>
+
+[Spoonacular API](https://spoonacular.com/food-api) for constructing RESTful API.<br>
+Spoonacular API provides a RESTful API interface to highly detailed objects built from thousands of lines of data related to Recipes.
