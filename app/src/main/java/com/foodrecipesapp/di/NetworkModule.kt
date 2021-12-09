@@ -2,11 +2,15 @@ package com.foodrecipesapp.di
 
 import com.foodrecipesapp.util.Constants.Companion.BASE_URL
 import com.foodrecipesapp.data.network.FoodRecipesApi
+import com.foodrecipesapp.util.Constants.Companion.API_KEY
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -19,8 +23,10 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideHttpClient(): OkHttpClient {
+    fun provideHttpClient(okHttpNetworkInterceptor: Interceptor, httpLogger: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor(okHttpNetworkInterceptor)
+            .addInterceptor(httpLogger)
             .readTimeout(15, TimeUnit.SECONDS)
             .connectTimeout(15, TimeUnit.SECONDS)
             .build()
@@ -50,5 +56,26 @@ object NetworkModule {
     @Provides
     fun provideApiService(retrofit: Retrofit): FoodRecipesApi {
         return retrofit.create(FoodRecipesApi::class.java)
+    }
+
+
+    @Singleton
+    @Provides
+    fun getOkHttpNetworkInterceptor(): Interceptor {
+        return object : Interceptor {
+            override fun intercept(chain: Interceptor.Chain): Response {
+                val newRequest =
+                    chain.request().newBuilder().addHeader("x-api-key", API_KEY).build()
+                return chain.proceed(newRequest)
+            }
+        }
+    }
+
+    @Singleton
+    @Provides
+    fun getHttpLogger(): HttpLoggingInterceptor {
+        return HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
     }
 }
