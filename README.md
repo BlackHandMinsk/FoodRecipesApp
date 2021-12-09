@@ -57,7 +57,7 @@ api_key=YOUR_API_KEY
 
 ## Architecture
 
-Appita is based on MVVM architecture and a repository pattern.
+App is based on MVVM architecture and a repository pattern.
 
 ![architecture](https://developer.android.com/topic/libraries/architecture/images/final-architecture.png)
 
