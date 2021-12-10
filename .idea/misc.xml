@@ -8,6 +8,7 @@
         <entry key="..\:/Users/37544/AndroidStudioProjects/FoodRecipesApp/app/src/main/res/drawable/bottom_navigation_color_selector.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/37544/AndroidStudioProjects/FoodRecipesApp/app/src/main/res/drawable/gradient_overlay.xml" value="0.25076923076923074" />
         <entry key="..\:/Users/37544/AndroidStudioProjects/FoodRecipesApp/app/src/main/res/drawable/ic_error_placeholder.xml" value="0.14635416666666667" />
+        <entry key="..\:/Users/37544/AndroidStudioProjects/FoodRecipesApp/app/src/main/res/layout-land/recipes_bottom_sheet.xml" value="0.10714285714285714" />
         <entry key="..\:/Users/37544/AndroidStudioProjects/FoodRecipesApp/app/src/main/res/layout/activity_details.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/37544/AndroidStudioProjects/FoodRecipesApp/app/src/main/res/layout/activity_main.xml" value="0.152" />
         <entry key="..\:/Users/37544/AndroidStudioProjects/FoodRecipesApp/app/src/main/res/layout/favorite_recipes_row_layout.xml" value="0.16893115942028986" />
@@ -21,7 +22,7 @@
         <entry key="..\:/Users/37544/AndroidStudioProjects/FoodRecipesApp/app/src/main/res/layout/ingredients_row_layout.xml" value="0.4" />
         <entry key="..\:/Users/37544/AndroidStudioProjects/FoodRecipesApp/app/src/main/res/layout/placeholder_row_layout.xml" value="0.13125" />
         <entry key="..\:/Users/37544/AndroidStudioProjects/FoodRecipesApp/app/src/main/res/layout/playceholder_row_layout.xml" value="0.12760416666666666" />
-        <entry key="..\:/Users/37544/AndroidStudioProjects/FoodRecipesApp/app/src/main/res/layout/recipes_bottom_sheet.xml" value="0.264" />
+        <entry key="..\:/Users/37544/AndroidStudioProjects/FoodRecipesApp/app/src/main/res/layout/recipes_bottom_sheet.xml" value="0.2" />
         <entry key="..\:/Users/37544/AndroidStudioProjects/FoodRecipesApp/app/src/main/res/layout/recipes_row_layout.xml" value="0.536" />
         <entry key="..\:/Users/37544/AndroidStudioProjects/FoodRecipesApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.4" />
         <entry key="..\:/Users/37544/AndroidStudioProjects/FoodRecipesApp/app/src/main/res/menu/favorite_recipes_menu.xml" value="0.25416666666666665" />
